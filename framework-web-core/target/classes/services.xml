@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+  <service name="111"  class="test"  register="true"/>
+  <service name="2222"  class="test1"  register="false"/>
+  <service name="33333"  class="test444"  register="false"/>
+</services>
