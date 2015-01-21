@@ -33,6 +33,10 @@ public interface IService {
 	 * @return
 	 */
 	public String getCode();
+	/**
+	 *在注册的时候可以指明code
+	 */
+	public void setCode(String code);
 	
 	
 }

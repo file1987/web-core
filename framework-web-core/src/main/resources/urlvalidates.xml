@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlvalidates>
+  <urlvalidate url="111"  serviceCode="test"  register="true"/>
+  <urlvalidate url="2222"  serviceCode="test1"  register="false"/>
+  <urlvalidate url="33333"  serviceCode="test444"  register="false"/>
+</urlvalidates>

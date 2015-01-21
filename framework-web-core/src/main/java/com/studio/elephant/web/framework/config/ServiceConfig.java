@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -21,6 +22,8 @@ import com.studio.elephant.web.framework.model.ServiceConfigModel;
  */
 public class ServiceConfig implements IConfig {
 	
+	private static final Logger  logger = Logger.getLogger(ServiceConfig.class);
+	
 	/**
 	 * 获取配置文件的所有服务
 	 * @return
@@ -33,10 +36,8 @@ public class ServiceConfig implements IConfig {
         try {  
             Document doc  =  sr.read(myXML);  
             Element root = doc.getRootElement();
-            
             @SuppressWarnings("unchecked")
 			Iterator<Element> serviceIt = root.elementIterator();
-            
             while (serviceIt.hasNext()) {
 				Element service = serviceIt.next();
 				ServiceConfigModel serviceConfigModel = new ServiceConfigModel();
@@ -47,7 +48,7 @@ public class ServiceConfig implements IConfig {
 				services.add(serviceConfigModel);
 			}
         } catch (DocumentException e) {  
-            e.printStackTrace();  
+           logger.error("", e);  
         } finally{ 
         	
         }
@@ -82,7 +83,7 @@ public class ServiceConfig implements IConfig {
 					services.add(serviceConfigModel);
 			}
         } catch (DocumentException e) {  
-            e.printStackTrace();  
+        	logger.error("", e);  
         } finally{ 
         	
         }

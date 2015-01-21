@@ -58,10 +58,4 @@ public class ThreadService extends AbstractService {
 			}
 		});
 	}
-	/**
-	 * 继承必须重写该方法
-	 */
-	public String getCode() {
-		return "ThreadService";
-	}
 }

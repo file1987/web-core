@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
  * @version 1.0
  */
 public abstract class AbstractService implements IService {
+	
+
 	/**
 	 * 服务状态，默认为正在启动
 	 */
@@ -63,6 +65,15 @@ public abstract class AbstractService implements IService {
 		return status;
 	}
 	
+	private volatile String code;
+	@Override
+	public String getCode() {
+		return code;
+	}
+	@Override
+	public void setCode(String code) {
+		this.code = code;
+	}
 	
 
 }

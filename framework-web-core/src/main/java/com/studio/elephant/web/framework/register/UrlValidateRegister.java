@@ -85,6 +85,12 @@ public final class UrlValidateRegister {
 		return null;
 	}
 	
+	/**
+	 * 注销所有url
+	 */
+	public static void unregisterAll(){
+		serviceCodes.clear();
+	}
 	
 	
 	

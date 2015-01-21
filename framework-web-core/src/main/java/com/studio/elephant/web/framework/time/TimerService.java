@@ -146,12 +146,6 @@ public class TimerService extends AbstractService {
 			}
 		});
 	}
-	/**
-	 * 若被继承，必须重写该方法
-	 */
-	public String getCode() {
-		return "TimerService";
-	}
 	
 	
 	

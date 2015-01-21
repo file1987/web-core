@@ -1,16 +1,13 @@
 package com.studio.elephant.web.framework.listener;
 
-import java.util.List;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.apache.log4j.Logger;
 import com.studio.elephant.web.framework.IService;
-import com.studio.elephant.web.framework.config.ServiceConfig;
-import com.studio.elephant.web.framework.model.ServiceConfigModel;
 import com.studio.elephant.web.framework.register.ServiceRegister;
 import com.studio.elephant.web.framework.system.SystemService;
 /**
- * 
+ * ContextListener
  * @author file
  * @since 2015-1-15 下午4:15:57
  * @version 1.0
@@ -18,38 +15,32 @@ import com.studio.elephant.web.framework.system.SystemService;
 public class ElephantContextListener implements ServletContextListener {
 	
 	private static final Logger logger = Logger.getLogger(ElephantContextListener.class);
+	//全局只有一个服务级别的系统服务
+	private IService  sysService = null;
+	
 	
 	public void contextInitialized(ServletContextEvent sce) {
+		if(logger.isDebugEnabled())
+			logger.debug("register system service begin");
 		
-		//必须启动系统级别服务
-		ServiceRegister.registerServiceOnStartup(new SystemService());
+		//必须启动系统级别服务(把其他服务放到系统服务去处理)
+		ServiceRegister.registerServiceOnStartup(sysService = new SystemService());
 		
-		//注册服务配置
-		ServiceConfig serviceConfig = new ServiceConfig();
-		//获取注册的服务数据
-		List<ServiceConfigModel> services = serviceConfig.getRegisterService();
-		//对需要注册的服务数据进行注册并启动
-		for (ServiceConfigModel model : services) {
-			try {
-				IService service = (IService) Class.forName(model.serviceClass).newInstance();
-				ServiceRegister.registerServiceOnStartup(service);
-			} catch (InstantiationException e) {
-				logger.error("service:"+model, e);
-				throw new IllegalArgumentException(e);
-			} catch (IllegalAccessException e) {
-				logger.error("service:"+model, e);
-				throw new IllegalArgumentException(e);
-			} catch (ClassNotFoundException e) {
-				logger.error("service:"+model, e);
-				throw new IllegalArgumentException(e);
-			}
-		}
+		if(logger.isDebugEnabled())
+			logger.debug("register system service end");
+		
 
 	}
 
 	public void contextDestroyed(ServletContextEvent sce) {
-		//停止所有服务并注销
-		ServiceRegister.unregisterOnShutdownAll();
+		
+		if(logger.isDebugEnabled())
+			logger.debug("unregister system service begin");
+		//注销并停止系统服务
+		ServiceRegister.unregisterServiceOnShutdown(sysService);
+		if(logger.isDebugEnabled())
+			logger.debug("unregister system service end");
+		
 	}
 
 }
