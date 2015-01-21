@@ -8,6 +8,7 @@ import com.studio.elephant.web.framework.IService;
 import com.studio.elephant.web.framework.config.ServiceConfig;
 import com.studio.elephant.web.framework.model.ServiceConfigModel;
 import com.studio.elephant.web.framework.register.ServiceRegister;
+import com.studio.elephant.web.framework.system.SystemService;
 /**
  * 
  * @author file
@@ -19,6 +20,10 @@ public class ElephantContextListener implements ServletContextListener {
 	private static final Logger logger = Logger.getLogger(ElephantContextListener.class);
 	
 	public void contextInitialized(ServletContextEvent sce) {
+		
+		//必须启动系统级别服务
+		ServiceRegister.registerServiceOnStartup(new SystemService());
+		
 		//注册服务配置
 		ServiceConfig serviceConfig = new ServiceConfig();
 		//获取注册的服务数据
