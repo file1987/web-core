@@ -13,5 +13,5 @@ public @interface GlobalRegisterMapping {
 	 * 获取全局枚举
 	 * @return
 	 */
-	public Global getGlobal();
+	public Global global();
 }
