@@ -2,6 +2,8 @@ package com.studio.elephant.web.framework;
 
 import org.apache.log4j.Logger;
 
+import com.studio.elephant.utils.StringUtil;
+
 /**
  * 抽象服务
  * @author file
@@ -68,6 +70,8 @@ public abstract class AbstractService implements IService {
 	private volatile String code;
 	@Override
 	public String getCode() {
+		if(StringUtil.isEmpty(code))
+			return toString();
 		return code;
 	}
 	@Override
